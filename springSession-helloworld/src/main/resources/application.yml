@@ -1,0 +1,9 @@
+spring:
+  redis:
+    host: localhost
+    jedis:
+      pool:
+        max-idle: 100
+  session:
+    store-type: redis
+    timeout: 1800
