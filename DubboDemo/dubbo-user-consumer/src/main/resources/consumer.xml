@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans        http://www.springframework.org/schema/beans/spring-beans-4.3.xsd        http://dubbo.apache.org/schema/dubbo        http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
+
+    <!--1.给当前应用起个名字-->
+    <dubbo:application name="dubbo-user-consumer"  />
+
+    <!--2.告诉dubbo注册中心的地址在哪里，注册中心用的是zookeeper-->
+    <dubbo:registry address="zookeeper://127.0.0.1:2181" />
+
+    <!--3.要调用哪个远程服务【服务引用]-->
+    <dubbo:reference id="movieService" interface="com.atguigu.dubbo.service.MovieService" />
+
+    <!--4.将消费者加入到容器中-->
+    <bean id="userService" class="com.atguigu.dubbo.service.impl.UserServiceImpl">
+        <property name="movieService" ref="movieService"/>
+    </bean>
+</beans>
